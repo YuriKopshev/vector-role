@@ -1,0 +1,10 @@
+[sources.sys_logs]
+  type = "file"
+  include = ["/var/log/**/*.log"]
+
+[sinks.clickhouse]
+  type = "clickhouse"
+  inputs = ["sys_logs"]
+  endpoint = "http://{{ clickhouse_host }}:8123"
+  database = "{{ clickhouse_db }}"
+  table = "{{ clickhouse_table }}"
