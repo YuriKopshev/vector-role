@@ -1,0 +1,27 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: ubuntu
+    image: geerlingguy/docker-ubuntu2204-ansible:latest
+    pre_build_image: true
+    command: sleep infinity
+
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      ubuntu:
+        ansible_python_interpreter: /usr/bin/python3
+        clickhouse_host: "localhost"
+        clickhouse_db: "logs"
+        clickhouse_table: "vector_logs"
+
+verifier:
+  name: ansible
+
+

@@ -1,4 +1,3 @@
-#SPDX-License-Identifier: MIT-0
 ---
 - name: Vector | Get distr
   ansible.builtin.get_url:
@@ -12,18 +11,37 @@
     dest: "/tmp"
     remote_src: true
 
+- name: Vector | Find binary
+  ansible.builtin.find:
+    paths: "/tmp"
+    patterns: "vector"
+    recurse: true
+    file_type: file
+  register: vector_binary_file
+
+- name: Vector | Assert binary found
+  ansible.builtin.assert:
+    that:
+      - vector_binary_file.matched > 0
+    fail_msg: "Vector binary not found after unarchive"
+
 - name: Vector | Install
-  become: true
   ansible.builtin.copy:
-    src: "/tmp/vector-{{ vector_version }}-x86_64-unknown-linux-musl/bin/vector"
+    src: "{{ vector_binary_file.files[0].path }}"
     dest: "/usr/bin/vector"
     mode: "0755"
     remote_src: true
 
+- name: Vector | Create config directory
+  ansible.builtin.file:
+    path: "{{ vector_config_dir }}"
+    state: directory
+    mode: "0755"
+
 - name: Vector | Configure
-  become: true
   ansible.builtin.template:
     src: "vector.toml.j2"
     dest: "{{ vector_config_file }}"
     mode: "0644"
   notify: Restart vector
+
