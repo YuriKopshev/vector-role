@@ -1,0 +1,41 @@
+---
+dependency:
+  name: galaxy
+  enabled: false
+
+driver:
+  name: podman
+
+scenario:
+  name: compatibility
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - idempotence
+    - verify
+    - destroy
+
+platforms:
+  - name: ubuntu
+    image: docker.io/geerlingguy/docker-ubuntu2204-ansible:latest
+    pre_build_image: true
+    command: sleep infinity
+    cgroup_manager: cgroupfs
+    podman_extra_args:
+      - "--cgroups=disabled"
+
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      ubuntu:
+        ansible_python_interpreter: /usr/bin/python3
+        clickhouse_host: "localhost"
+        clickhouse_db: "logs"
+        clickhouse_table: "vector_logs"
+
+verifier:
+  name: ansible
+
+

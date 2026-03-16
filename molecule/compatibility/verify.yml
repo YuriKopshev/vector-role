@@ -1,0 +1,40 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check vector binary exists
+      ansible.builtin.stat:
+        path: /usr/bin/vector
+      register: vector_binary
+
+    - name: Assert vector binary exists
+      ansible.builtin.assert:
+        that:
+          - vector_binary.stat.exists
+        fail_msg: "Vector binary was not installed"
+        success_msg: "Vector binary exists"
+
+    - name: Check vector config exists
+      ansible.builtin.stat:
+        path: /etc/vector/vector.toml
+      register: vector_config
+
+    - name: Assert vector config exists
+      ansible.builtin.assert:
+        that:
+          - vector_config.stat.exists
+        fail_msg: "Vector config was not created"
+        success_msg: "Vector config exists"
+
+    - name: Read vector config
+      ansible.builtin.slurp:
+        src: /etc/vector/vector.toml
+      register: vector_config_content
+
+    - name: Assert vector config contains clickhouse endpoint
+      ansible.builtin.assert:
+        that:
+          - "'endpoint = \"http://localhost:8123\"' in (vector_config_content.content | b64decode)"
+        fail_msg: "Vector config does not contain clickhouse endpoint"
+        success_msg: "Vector config contains clickhouse endpoint"
