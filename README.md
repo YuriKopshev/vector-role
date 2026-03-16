@@ -37,3 +37,17 @@ Ansible-роль для установки и настройки Vector — аг
     - role: vector-role
       vars:
         vector_version: "0.21.1"
+
+
+```
+
+
+ ## Скриншоты по заданию №1
+![скриншот molecule create](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.png);
+
+![скриншот molecule test](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.1.png);    
+
+ ## Скриншоты по заданию №2
+![tox](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.png);
+
+![error_podman](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.1.png);    
