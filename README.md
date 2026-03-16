@@ -43,11 +43,11 @@ Ansible-роль для установки и настройки Vector — аг
 
 
  ## Скриншоты по заданию №1
-![скриншот molecule create](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.png);
+![скриншот molecule create](https://github.com/YuriKopshev/vector-role/blob/main/img/molecule_create.png);
 
-![скриншот molecule test](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.1.png);    
+![скриншот molecule test](https://github.com/YuriKopshev/vector-role/blob/main/img/molecule_test.png);    
 
  ## Скриншоты по заданию №2
-![tox](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.png);
+![tox](https://github.com/YuriKopshev/vector-role/blob/main/img/tox_1.png);
 
-![error_podman](https://github.com/YuriKopshev/terrafom_security_hw/blob/main/img/task3.1.png);    
+![error_podman](https://github.com/YuriKopshev/vector-role/blob/main/img/podman_error.png);    
